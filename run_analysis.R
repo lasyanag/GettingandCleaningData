@@ -1,15 +1,12 @@
-#Basic assumption : The zip file (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) is downloaded and extracted in the R Home Directory
+#The zip file is already downloaded and extracted in the R Home Directory
 
-#Loading libraries
+#Loading the libraries
 library(data.table)
 library(dplyr)
 
-#Read Supporting Metadata
+#Reading the Supporting Metadata
 featureNames <- read.table("UCI HAR Dataset/features.txt")
 activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt", header = FALSE)
-
-#Format train data
-#The data is split up into subject, activity and features
 
 #Read train data
 subjectTrain <- read.table("UCI HAR Dataset/train/subject_train.txt", header = FALSE)
@@ -65,13 +62,7 @@ extractedData$Activity <- as.factor(extractedData$Activity)
 #Look at variable names
 names(extractedData)
 
-#Acc can be replaced with Accelerometer
-#Gyro can be replaced with Gyroscope
-#BodyBody can be replaced with Body
-#Mag can be replaced with Magnitude
-#Character 'f' can be replaced with Frequency
-#Character 't' can be replaced with Time
-
+#Replace names
 names(extractedData)<-gsub("Acc", "Accelerometer", names(extractedData))
 names(extractedData)<-gsub("Gyro", "Gyroscope", names(extractedData))
 names(extractedData)<-gsub("BodyBody", "Body", names(extractedData))
@@ -91,7 +82,6 @@ names(extractedData)
 
 
 #Part 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-#Set the subject variable in the data as a factor
 
 extractedData$Subject <- as.factor(extractedData$Subject)
 extractedData <- data.table(extractedData)
